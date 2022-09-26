@@ -1,0 +1,51 @@
+{% extends "mail/layout.html" %} 
+{% load static %} 
+
+
+{% block body %}
+<h2>{{ request.user.email }}</h2>
+
+<button class="btn btn-sm btn-outline-warning" id="inbox">Inbox</button>
+<button class="btn btn-sm btn-outline-warning" id="compose">Compose</button>
+<button class="btn btn-sm btn-outline-warning" id="sent">Sent</button>
+<button class="btn btn-sm btn-outline-warning" id="archived">Archived</button>
+<a class="btn btn-sm btn-outline-warning" href="{% url 'logout' %}">Log Out</a>
+<hr />
+
+<div id="emails-view"></div>
+<div id="compose-view">
+  <h3>New Email</h3>
+  <form style="color: #fff;" id="compose-form">
+    <div class="form-group">
+      From:
+      <input disabled id="compose-sender" class="form-control" value="{{ request.user.email }}" />
+    </div>
+    <div class="form-group">
+      To: <input id="compose-recipients" required="true" class="form-control" />
+    </div>
+    <div class="form-group">
+      <input
+        class="form-control"
+        required="true"
+        id="compose-subject"
+        placeholder="Subject"
+      />
+    </div>
+    <textarea
+      class="form-control"
+      id="compose-body"
+      placeholder="Body"
+      required="true"
+    ></textarea>
+    <input style="margin-top: 20px" type="submit" class="btn btn-warning" />
+  </form>
+</div>
+{% endblock %} 
+
+{% block script %}
+<script src="{% static 'mail/inbox.js' %}"></script>
+<script
+  src="https://kit.fontawesome.com/4e362c2153.js"
+  crossorigin="anonymous"
+></script>
+{% endblock %}
